@@ -1,0 +1,12 @@
+#compdef gqui
+
+local COMP_LINE COMP_POINT
+COMP_LINE="$words"
+(( COMP_POINT = 1 + ${#${(j. .)words[1,CURRENT-1]}} + $#QIPREFIX + $#IPREFIX + $#PREFIX ))
+
+# gqui seems to be using parameters from environment, yet it complains loudly
+# when there are <2 arguments with COMPLETE command (probably bash is feeding
+# the params anyway).
+completions=($( COMP_LINE=$COMP_LINE COMP_POINT=$COMP_POINT /home/build/static/projects/gqui/gqui COMPLETE x y ))
+
+compadd -S '' -- $completions
